@@ -88,6 +88,7 @@ const markDone = (index) => {
 
 const editTask = (e, index) => {
    e.preventDefault();
+   // console.log(e.target);
    // create input on click of todo text
    e.target.innerHTML = `<input
                                type="text"
@@ -97,6 +98,7 @@ const editTask = (e, index) => {
                                onfocusout="updateTask(event, ${index})"
                            >`;
 };
+
 const updateTask = (e, index) => {
    if (e.target.value != "") {
       tasks[index].name = e.target.value;

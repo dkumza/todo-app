@@ -27,7 +27,7 @@ body {
 
 .title {
    @apply text-6xl
-   text-rose-200
+   text-red-200
    m-8;
 }
 
