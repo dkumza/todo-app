@@ -1,5 +1,4 @@
 const tasks = [];
-const alert = document.querySelector(".alert");
 
 //CRUD:
 //CREATE - Įrašo sukūrimas
@@ -11,20 +10,32 @@ const showList = () => {
    let res = "";
 
    tasks.forEach((task, index) => {
-      res += `<li 
-                   class="d-flex justify-content-between align-items-center"
-                   ondblclick="editTask(event, ${index})"
-               >
-                   <span 
-                       onclick="markDone(${index})" 
-                       ${task.status ? 'class="done"' : ""}
-                   >
+      res += `<li class="new-li">  
+                  <div class="new-li-wrap">
+                     <button>
+                        <i onclick="markDone(${index})" 
+                        ${
+                           task.status
+                              ? 'class="check-mark bi bi-check2-circle"'
+                              : 'class="check-mark bi bi-circle"'
+                        }>
+                        </i>
+                     </button>
+                     <div 
+                           ondblclick="editTask(event, ${index})" 
+                           ${
+                              task.status
+                                 ? 'class="line-through focus-me"'
+                                 : 'class="focus-me"'
+                           }>
                        ${task.name}
-                   </span>
-                   <button 
-                       class="btn btn-danger" 
-                       onclick="deleteTask(${index})"
-                   >Ištrinti</button>
+                     </div>
+                  </div>
+                  <button
+                       class=""
+                       onclick="deleteTask(${index})">
+                       <i class="bi bi-x"></i>
+                  </button>
                </li>`;
    });
 
@@ -35,12 +46,8 @@ const submitTask = (e) => {
    e.preventDefault();
 
    if (e.target[0].value === "") {
-      alert.textContent = "Neįvestas užduoties pavadinimas";
-      alert.style.display = "block";
       return;
    }
-
-   alert.style.display = "none";
 
    tasks[tasks.length] = {
       name: e.target[0].value,
@@ -54,16 +61,15 @@ const submitTask = (e) => {
 };
 
 const deleteTask = (index) => {
-   // delete tasks[index];
-
-   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
    tasks.splice(index, 1);
 
    showList();
 };
 
 const markDone = (index) => {
-   tasks[index].status = !tasks[index].status;
+   // ? select new created li item checkmark - circle
+   let trueOrFalse = !tasks[index].status;
+   tasks[index].status = trueOrFalse;
 
    showList();
 };
@@ -71,11 +77,15 @@ const markDone = (index) => {
 const editTask = (e, index) => {
    e.preventDefault();
 
-   e.target.querySelector("span").style.display = "none";
+   console.log(e.target);
+   const editLiItem = e.target.querySelector(".focus-me");
+   editLiItem.classlist.add("hide");
+   console.log(editLiItem);
 
-   e.target.innerHTML = `<input 
-                               type="text" 
-                               class="form-control" 
+   e.target.innerHTML = `<input
+                               type="text"
+                               class="input-text-up"
+
                                value="${tasks[index].name}"
                                onfocusout="updateTask(event, ${index})"
                            >`;

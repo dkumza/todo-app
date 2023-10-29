@@ -11,6 +11,10 @@
    }
 }
 
+body {
+   background-color: #ffffff;
+}
+
 /* form container  */
 .main-container {
    @apply container
@@ -21,19 +25,90 @@
    items-center;
 }
 
+.title {
+   @apply text-6xl
+   text-rose-300
+   m-8;
+}
+
 .input-group {
-   @apply border
-   w-1/2
+   @apply w-1/2
    min-w-fit
    max-w-lg;
 }
 
 .input-text {
    @apply border
+   shadow-xl
    placeholder:italic
    w-full
    h-14
    p-6
-   pl-10
+   pl-16
    outline-none;
+}
+
+.input-text-up {
+   @apply w-full
+    h-12
+    m-2;
+}
+
+.tasks-wrap {
+   @apply w-1/2
+    min-w-fit
+    max-w-lg;
+}
+
+.tasks {
+   @apply flex
+   flex-col
+   justify-between;
+}
+
+.new-li-wrap {
+   @apply flex
+   w-full
+   items-center;
+}
+
+.new-li {
+   @apply border
+   bg-white
+   shadow-xl
+   w-full
+   h-14
+   p-6
+   pl-12
+   flex
+   justify-between
+   items-center;
+}
+
+.focus-me {
+   @apply border
+   w-full
+   ml-2;
+}
+
+.bi-x {
+   display: none;
+}
+
+.new-li:hover .bi-x {
+   display: block;
+   @apply text-rose-400;
+}
+.check-mark {
+   margin-left: -40px;
+   @apply text-gray-300
+   hover:text-green-400;
+}
+
+.bi-check2-circle {
+   @apply text-green-400;
+}
+
+.hide {
+   display: none;
 }
