@@ -536,6 +536,40 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.container{
+  width: 100%;
+}
+
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+
 .line-through{
   text-decoration-line: line-through;
 }
@@ -549,7 +583,7 @@ video {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #acacac10;
 }
 
 /* form container  */
@@ -617,6 +651,8 @@ body {
   height: 3.5rem;
   width: 100%;
   border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity));
   padding: 1.5rem;
   padding-left: 4rem;
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
@@ -635,9 +671,11 @@ body {
 }
 
 .input-text-up{
-  margin: 0.5rem;
+  z-index: 10;
   height: 3rem;
   width: 100%;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .tasks-wrap{
@@ -666,6 +704,8 @@ body {
   align-items: center;
   justify-content: space-between;
   border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding: 1.5rem;
@@ -678,7 +718,11 @@ body {
 .focus-me{
   margin-left: 0.5rem;
   width: 100%;
-  border-width: 1px;
+}
+
+.line-through{
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .bi-x {

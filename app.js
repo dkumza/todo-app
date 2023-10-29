@@ -1,4 +1,5 @@
-const tasks = [];
+const allToDo = document.querySelector(".tasks");
+let tasks = [];
 
 //CRUD:
 //CREATE - Įrašo sukūrimas
@@ -6,40 +7,59 @@ const tasks = [];
 //UPDATE - Įrašo atnaujinimas
 //DELETE - Įrašo ištrynimas
 
+const createNewItem = (task, index) => {
+   // create li ele container
+   const newLi = document.createElement("li");
+   newLi.classList.add("new-li");
+   // create li item left side wrapper
+   const liWrap = document.createElement("div");
+   liWrap.classList.add("new-li-wrap");
+   // create check li ele icon for marking complete or not
+   const checkStatusIcon = document.createElement("button");
+   // create icon inside button ele
+   const iconBtn = document.createElement("i");
+   iconBtn.setAttribute("onclick", `markDone(${index})`);
+   if (task.status) {
+      task.status;
+      iconBtn.classList.add("check-mark", "bi", "bi-check2-circle");
+   } else {
+      iconBtn.classList.add("check-mark", "bi", "bi-circle");
+   }
+
+   // create div with input of task
+   const taskTxt = document.createElement("div");
+   taskTxt.setAttribute("onclick", `editTask(event, ${index})`);
+   if (task.status) {
+      taskTxt.classList.add("line-through", "focus-me");
+   } else {
+      taskTxt.classList.add("focus-me");
+   }
+
+   // delete button with icon
+   const delBtn = document.createElement("button");
+   delBtn.setAttribute("onclick", `deleteTask(${index})`);
+   const delBtnIcon = document.createElement("i");
+   delBtnIcon.classList.add("bi", "bi-x");
+
+   taskTxt.textContent = `${task.name}`; //${task.name}
+   checkStatusIcon.appendChild(iconBtn);
+   liWrap.appendChild(checkStatusIcon);
+   liWrap.appendChild(taskTxt);
+   delBtn.appendChild(delBtnIcon);
+   newLi.appendChild(liWrap);
+   newLi.appendChild(delBtn);
+   // make last input first at top
+   const firstToDo = allToDo.firstChild;
+   allToDo.insertBefore(newLi, firstToDo);
+};
+
 const showList = () => {
-   let res = "";
+   // reset innerHTML of allToDO
+   allToDo.innerHTML = "";
 
    tasks.forEach((task, index) => {
-      res += `<li class="new-li">  
-                  <div class="new-li-wrap">
-                     <button>
-                        <i onclick="markDone(${index})" 
-                        ${
-                           task.status
-                              ? 'class="check-mark bi bi-check2-circle"'
-                              : 'class="check-mark bi bi-circle"'
-                        }>
-                        </i>
-                     </button>
-                     <div 
-                           ondblclick="editTask(event, ${index})" 
-                           ${
-                              task.status
-                                 ? 'class="line-through focus-me"'
-                                 : 'class="focus-me"'
-                           }>
-                       ${task.name}
-                     </div>
-                  </div>
-                  <button
-                       class=""
-                       onclick="deleteTask(${index})">
-                       <i class="bi bi-x"></i>
-                  </button>
-               </li>`;
+      createNewItem(task, index);
    });
-
-   document.querySelector(".tasks").innerHTML = res;
 };
 
 const submitTask = (e) => {
@@ -56,13 +76,11 @@ const submitTask = (e) => {
    };
 
    e.target[0].value = "";
-
-   showList();
+   showList(tasks);
 };
 
 const deleteTask = (index) => {
    tasks.splice(index, 1);
-
    showList();
 };
 
@@ -76,12 +94,6 @@ const markDone = (index) => {
 
 const editTask = (e, index) => {
    e.preventDefault();
-
-   console.log(e.target);
-   const editLiItem = e.target.querySelector(".focus-me");
-   editLiItem.classlist.add("hide");
-   console.log(editLiItem);
-
    e.target.innerHTML = `<input
                                type="text"
                                class="input-text-up"
@@ -90,9 +102,9 @@ const editTask = (e, index) => {
                                onfocusout="updateTask(event, ${index})"
                            >`;
 };
-
 const updateTask = (e, index) => {
-   tasks[index].name = e.target.value;
-
+   if (e.target.value != "") {
+      tasks[index].name = e.target.value;
+   }
    showList();
 };

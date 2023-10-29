@@ -12,7 +12,7 @@
 }
 
 body {
-   background-color: #ffffff;
+   background-color: #acacac10;
 }
 
 /* form container  */
@@ -39,6 +39,7 @@ body {
 
 .input-text {
    @apply border
+   border-gray-100
    shadow-xl
    placeholder:italic
    w-full
@@ -51,7 +52,8 @@ body {
 .input-text-up {
    @apply w-full
     h-12
-    m-2;
+    z-10
+    outline-none;
 }
 
 .tasks-wrap {
@@ -73,8 +75,9 @@ body {
 }
 
 .new-li {
-   @apply border
-   bg-white
+   @apply bg-white
+   border
+   border-gray-100
    shadow-xl
    w-full
    h-14
@@ -86,9 +89,12 @@ body {
 }
 
 .focus-me {
-   @apply border
-   w-full
+   @apply w-full
    ml-2;
+}
+
+.line-through {
+   @apply text-gray-400;
 }
 
 .bi-x {
