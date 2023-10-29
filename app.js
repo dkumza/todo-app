@@ -1,12 +1,6 @@
 const allToDo = document.querySelector(".tasks");
 let tasks = [];
 
-//CRUD:
-//CREATE - Įrašo sukūrimas
-//READ - Įrašo atvaizdavimas
-//UPDATE - Įrašo atnaujinimas
-//DELETE - Įrašo ištrynimas
-
 const createNewItem = (task, index) => {
    // create li ele container
    const newLi = document.createElement("li");
@@ -94,6 +88,7 @@ const markDone = (index) => {
 
 const editTask = (e, index) => {
    e.preventDefault();
+   // create input on click of todo text
    e.target.innerHTML = `<input
                                type="text"
                                class="input-text-up"

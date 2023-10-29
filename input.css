@@ -27,7 +27,7 @@ body {
 
 .title {
    @apply text-6xl
-   text-rose-300
+   text-rose-200
    m-8;
 }
 
@@ -39,9 +39,11 @@ body {
 
 .input-text {
    @apply border
+   border-b-2
    border-gray-100
    shadow-xl
    placeholder:italic
+   placeholder:text-gray-300
    w-full
    h-14
    p-6
@@ -52,7 +54,6 @@ body {
 .input-text-up {
    @apply w-full
     h-12
-    z-10
     outline-none;
 }
 
@@ -94,7 +95,7 @@ body {
 }
 
 .line-through {
-   @apply text-gray-400;
+   @apply text-gray-300;
 }
 
 .bi-x {
@@ -113,6 +114,12 @@ body {
 
 .bi-check2-circle {
    @apply text-green-400;
+}
+
+.about-wrap {
+   @apply text-xs
+   text-gray-400
+   pt-12;
 }
 
 .hide {
