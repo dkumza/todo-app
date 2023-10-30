@@ -81,7 +81,9 @@ const deleteTask = (index) => {
 };
 
 const toggleAllTasks = () => {
+   // toggle all tasks to finished
    const allTasksAreTrue = tasks.every((task) => task.status === true);
+   // depending on value change DOM
    let changeStatus = tasks.map((task) => {
       if (allTasksAreTrue) {
          task.status = false;
@@ -94,6 +96,14 @@ const toggleAllTasks = () => {
    });
    showList(changeStatus);
 };
+
+// simple for changing status true to false and vice versa
+// const toggleAllTasks = () => {
+//    for (const index in tasks) {
+//       tasks[index].status = !tasks[index].status;
+//    }
+//    showList();
+// };
 
 const markDone = (index) => {
    // ? select new created li item checkmark - circle
