@@ -1,4 +1,6 @@
 const allToDo = document.querySelector(".tasks");
+const inputIcon = document.querySelector(".input-icon");
+console.log(inputIcon);
 let tasks = [];
 
 const createNewItem = (task, index) => {
@@ -80,7 +82,19 @@ const deleteTask = (index) => {
 };
 
 const toggleAllTasks = () => {
-   console.log("not working :)");
+   console.log(inputIcon);
+   const allTasksAreTrue = tasks.every((task) => task.status === true);
+   let changeStatus = tasks.map((task) => {
+      if (allTasksAreTrue) {
+         task.status = false;
+         inputIcon.classList.remove("toggle-icon");
+      } else if (!task.status) {
+         task.status = true;
+         inputIcon.classList.add("toggle-icon");
+      }
+      return task;
+   });
+   showList(changeStatus);
 };
 
 const markDone = (index) => {

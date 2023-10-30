@@ -785,3 +785,8 @@ body {
 .hide {
   display: none;
 }
+
+.toggle-icon{
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity));
+}

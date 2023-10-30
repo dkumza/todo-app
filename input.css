@@ -142,3 +142,7 @@ body {
 .hide {
    display: none;
 }
+
+.toggle-icon {
+   @apply text-green-400;
+}
