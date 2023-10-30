@@ -1,6 +1,5 @@
 const allToDo = document.querySelector(".tasks");
 const inputIcon = document.querySelector(".input-icon");
-console.log(inputIcon);
 let tasks = [];
 
 const createNewItem = (task, index) => {
@@ -82,7 +81,6 @@ const deleteTask = (index) => {
 };
 
 const toggleAllTasks = () => {
-   console.log(inputIcon);
    const allTasksAreTrue = tasks.every((task) => task.status === true);
    let changeStatus = tasks.map((task) => {
       if (allTasksAreTrue) {
@@ -98,7 +96,6 @@ const toggleAllTasks = () => {
 };
 
 const markDone = (index) => {
-   // console.log(tasks);
    // ? select new created li item checkmark - circle
    let trueOrFalse = !tasks[index].status;
    tasks[index].status = trueOrFalse;
@@ -108,7 +105,6 @@ const markDone = (index) => {
 
 const editTask = (e, index) => {
    e.preventDefault();
-   // console.log(e.target);
    // create input on click of todo text
    e.target.innerHTML = `<input
                                type="text"
