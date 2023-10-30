@@ -42,9 +42,10 @@ const createNewItem = (task, index) => {
    delBtn.appendChild(delBtnIcon);
    newLi.appendChild(liWrap);
    newLi.appendChild(delBtn);
+   allToDo.appendChild(newLi);
    // make last input first at top
-   const firstToDo = allToDo.firstChild;
-   allToDo.insertBefore(newLi, firstToDo);
+   // const firstToDo = allToDo.firstChild;
+   // allToDo.insertBefore(newLi, firstToDo);
 };
 
 const showList = () => {
@@ -78,7 +79,12 @@ const deleteTask = (index) => {
    showList();
 };
 
+const toggleAllTasks = () => {
+   console.log("not working :)");
+};
+
 const markDone = (index) => {
+   // console.log(tasks);
    // ? select new created li item checkmark - circle
    let trueOrFalse = !tasks[index].status;
    tasks[index].status = trueOrFalse;

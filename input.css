@@ -18,6 +18,7 @@ body {
 /* form container  */
 .main-container {
    @apply container
+   p-4
    mx-auto
    text-2xl
    flex
@@ -31,23 +32,36 @@ body {
    m-8;
 }
 
+.form-wrapper {
+   @apply flex
+   bg-white
+   border
+   items-center
+   w-full
+   max-w-lg
+   border-b-2
+   border-gray-100
+   shadow-xl;
+}
+
+.input-icon {
+   @apply pl-4
+   text-gray-300
+   hover:text-green-400;
+}
+
 .input-group {
-   @apply w-1/2
-   min-w-fit
-   max-w-lg;
+   @apply w-full;
 }
 
 .input-text {
-   @apply border
-   border-b-2
-   border-gray-100
-   shadow-xl
-   placeholder:italic
+   @apply placeholder:italic
    placeholder:text-gray-300
    w-full
    h-14
    p-6
-   pl-16
+   pl-4
+   /* pl-16 */
    outline-none;
 }
 
@@ -58,13 +72,14 @@ body {
 }
 
 .tasks-wrap {
-   @apply w-1/2
+   @apply w-full
     min-w-fit
     max-w-lg;
 }
 
 .tasks {
    @apply flex
+   w-full   
    flex-col
    justify-between;
 }
@@ -72,6 +87,7 @@ body {
 .new-li-wrap {
    @apply flex
    w-full
+   
    items-center;
 }
 
@@ -81,6 +97,7 @@ body {
    border-gray-100
    shadow-xl
    w-full
+   
    h-14
    p-6
    pl-12
