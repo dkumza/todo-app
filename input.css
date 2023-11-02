@@ -40,13 +40,12 @@ body {
    w-full
    max-w-lg
    border-b-2
-   border-gray-100
+   border-gray-200
    shadow-xl;
 }
 
 .input-icon {
-   @apply pl-4
-   text-gray-300
+   @apply text-gray-300
    hover:text-green-400;
 }
 
@@ -56,12 +55,10 @@ body {
 
 .input-text {
    @apply placeholder:italic
+   placeholder:font-light
    placeholder:text-gray-300
    w-full
    h-14
-   p-6
-   pl-4
-   /* pl-16 */
    outline-none;
 }
 
@@ -72,7 +69,9 @@ body {
 }
 
 .tasks-wrap {
-   @apply w-full
+   @apply flex
+   flex-col
+   w-full
     min-w-fit
     max-w-lg;
 }
@@ -96,8 +95,7 @@ body {
    border
    border-gray-100
    shadow-xl
-   w-full
-   
+   w-full   
    h-14
    p-6
    pl-12
@@ -139,10 +137,30 @@ body {
    pt-12;
 }
 
-.hide {
-   display: none;
+.stack-wrap {
+   @apply flex
+   flex-col
+   items-center;
+}
+
+.test-wrap1,
+.test-wrap2 {
+   @apply border
+   border-gray-200
+   max-w-[calc(32rem-6px)]
+   w-[calc(100%-6px)]
+   bg-white;
+   height: 5px;
+}
+
+.test-wrap2 {
+   @apply max-w-[calc(32rem-12px)];
 }
 
 .toggle-icon {
    @apply text-green-400;
+}
+
+.hide {
+   display: none;
 }

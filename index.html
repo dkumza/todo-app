@@ -13,10 +13,15 @@
    </head>
    <body>
       <div class="main-container">
-         <h1 class="title">todos</h1>
+         <header class="head-container">
+            <h1 class="title">todos</h1>
+         </header>
+
          <div class="form-wrapper">
-            <button onclick="toggleAllTasks()" class="input-icon">
-               <i class="bi bi-check2-all"></i>
+            <button onclick="toggleAllTasks()" class="input-icon w-14">
+               <div class="">
+                  <i class="bi bi-check2-all"></i>
+               </div>
             </button>
             <form class="input-group" onsubmit="submitTask(event)">
                <input
@@ -28,12 +33,15 @@
                />
             </form>
          </div>
+         <!-- <div class="test-wrap1"></div>
+         <div class="test-wrap2"></div> -->
 
          <div class="tasks-wrap">
             <ul class="tasks"></ul>
          </div>
-
-         <div class="about-wrap"><p>Double click to edit todo</p></div>
+         <footer class="foot-container">
+            <div class="about-wrap"><p>Double click to edit todo</p></div>
+         </footer>
       </div>
    </body>
 </html>
