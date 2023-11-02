@@ -152,35 +152,45 @@ body {
    justify-between
    align-middle
    items-center
-   p-3
+   p-2
+   px-4
    bg-white
    text-gray-500
    w-full;
 }
 
-.info-2 button {
+.btn-2 {
    @apply border
+   rounded
    px-2 
    py-1
    border-white;
 }
 
-.info-2 button:hover {
+.btn-2:hover {
    @apply border
-   px-2 
-   py-1
-   rounded
    border-rose-100;
 }
 
+.btn-all {
+   @apply border-rose-100;
+}
 .info-2 {
    @apply flex
    gap-2;
 }
 
+.info-3 {
+   width: 5.5rem;
+}
+
 .info-3 button:hover {
    @apply border-b
    border-gray-400;
+}
+
+.all-info {
+   @apply border;
 }
 
 .test-wrap1,

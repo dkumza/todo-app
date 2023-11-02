@@ -5,8 +5,11 @@ const selAll = document.querySelector(".s-all");
 const inputIcon = document.querySelector(".input-icon");
 // tasks counter
 const tasksCounter = document.querySelector(".counter");
+// clear button
+const clearBtn = document.querySelector(".btn-clear");
 // let stackDiv;
 let tasks = [];
+let array = [];
 
 const createNewItem = (task, index) => {
    // create li ele container
@@ -58,15 +61,26 @@ const countTasks = () => {
       : (tasksCounter.textContent = `${tasks.length} items left`);
 };
 
-const showList = () => {
+// * toggle clear complete button
+const toggleClearBtn = () => {
+   const exists = [...tasks].map((task) => task.status).includes(true);
+   exists ? clearBtn.classList.remove("hide") : clearBtn.classList.add("hide");
+};
+
+// * creates li items
+const showList = (array) => {
+   // * passed array to function declared to tasks variable - array > tasks. To work with any passed array
+   tasks = array;
    // reset innerHTML of allToDO
    allToDo.innerHTML = "";
+   console.log(tasks);
 
    tasks.forEach((task, index) => {
       createNewItem(task, index);
    });
 };
 
+// * on submit new task creates fills up tasks array
 const submitTask = (e) => {
    e.preventDefault();
 
@@ -83,7 +97,6 @@ const submitTask = (e) => {
 
    countTasks();
 
-   console.log(tasks.length);
    if (tasks.length === 1) {
       // hide "stack" and hide select all tasks icon
       stackWrap.classList.remove("hide");
@@ -91,6 +104,7 @@ const submitTask = (e) => {
    }
 };
 
+// * on task delete action deletes clicked li item from tasks array and DOM
 const deleteTask = (index) => {
    tasks.splice(index, 1);
    showList();
@@ -102,41 +116,40 @@ const deleteTask = (index) => {
    }
 };
 
+// * toggles all tasks done or not done
 const toggleAllTasks = () => {
    console.log("first");
    // toggle all tasks to finished
-   const allTasksAreTrue = tasks.every((task) => task.status === true);
+   const allTasksAreTrue = [...tasks].every((task) => task.status === true);
    // depending on value change DOM
-   let changeStatus = tasks.map((task) => {
+   const changeStatus = tasks.map((task) => {
       if (allTasksAreTrue) {
          task.status = false;
          inputIcon.classList.remove("toggle-icon");
+         clearBtn.classList.add("hide");
       }
       if (!allTasksAreTrue) {
          task.status = true;
          inputIcon.classList.add("toggle-icon");
+         clearBtn.classList.remove("hide");
       }
       return task;
    });
    showList(changeStatus);
 };
 
-// simple for changing status true to false and vice versa
-// const toggleAllTasks = () => {
-//    for (const index in tasks) {
-//       tasks[index].status = !tasks[index].status;
-//    }
-//    showList();
-// };
-
+// * function to select 1 task item to finish or not
 const markDone = (index) => {
    // ? select new created li item checkmark - circle
    let trueOrFalse = !tasks[index].status;
    tasks[index].status = trueOrFalse;
 
-   showList();
+   toggleClearBtn();
+   // check done status for clear completed button
+   showList(tasks);
 };
 
+// * on double click on tasks text toggles input field with tasks text to edit task
 const editTask = (e, index) => {
    e.preventDefault();
    // create input on click of todo text
@@ -149,8 +162,17 @@ const editTask = (e, index) => {
                            >`;
 };
 
+// * if on task edit input value is same or empty - keep last task value
 const updateTask = (e, index) => {
    if (e.target.value != "") tasks[index].name = e.target.value;
 
    showList();
+};
+
+// * clears all tasks on "clear completed" button click
+const clearAll = () => {
+   const clearedTasks = [...tasks].filter((task) => task.status === false);
+   showList(clearedTasks);
+   countTasks();
+   toggleClearBtn();
 };
