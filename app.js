@@ -11,6 +11,20 @@ const clearBtn = document.querySelector(".btn-clear");
 let tasks = [];
 let array = [];
 
+// show / hide bottom menu
+const stackWrapMenu = () => {
+   if (tasks.length === 0) {
+      // show "stack" and show select all tasks icon
+      stackWrap.classList.add("hide");
+      selAll.classList.add("hide");
+   }
+   if (tasks.length === 1) {
+      // hide "stack" and hide select all tasks icon
+      stackWrap.classList.remove("hide");
+      selAll.classList.remove("hide");
+   }
+};
+
 const createNewItem = (task, index) => {
    // create li ele container
    const newLi = document.createElement("li");
@@ -97,23 +111,15 @@ const submitTask = (e) => {
 
    countTasks();
 
-   if (tasks.length === 1) {
-      // hide "stack" and hide select all tasks icon
-      stackWrap.classList.remove("hide");
-      selAll.classList.remove("hide");
-   }
+   stackWrapMenu();
 };
 
 // * on task delete action deletes clicked li item from tasks array and DOM
 const deleteTask = (index) => {
    tasks.splice(index, 1);
-   showList();
+   showList(tasks);
    countTasks();
-   if (tasks.length === 0) {
-      // show "stack" and show select all tasks icon
-      stackWrap.classList.add("hide");
-      selAll.classList.add("hide");
-   }
+   stackWrapMenu();
 };
 
 // * toggles all tasks done or not done
@@ -175,4 +181,5 @@ const clearAll = () => {
    showList(clearedTasks);
    countTasks();
    toggleClearBtn();
+   stackWrapMenu();
 };

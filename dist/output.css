@@ -640,17 +640,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
   font-size: 1.5rem;
   line-height: 2rem;
 }
 
 .title{
-  margin: 2rem;
-  font-size: 3.75rem;
+  margin: 1rem;
+  text-align: center;
+  font-size: 6rem;
   line-height: 1;
   --tw-text-opacity: 1;
-  color: rgb(254 202 202 / var(--tw-text-opacity));
+  color: rgb(254 226 226 / var(--tw-text-opacity));
 }
 
 .form-wrapper{

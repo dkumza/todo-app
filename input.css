@@ -18,7 +18,6 @@ body {
 /* form container  */
 .main-container {
    @apply container
-   p-4
    mx-auto
    text-2xl
    flex
@@ -27,9 +26,10 @@ body {
 }
 
 .title {
-   @apply text-6xl
-   text-red-200
-   m-8;
+   @apply text-8xl
+   text-red-100
+   m-4
+   text-center;
 }
 
 .form-wrapper {
