@@ -172,7 +172,7 @@ const editTask = (e, index) => {
 const updateTask = (e, index) => {
    if (e.target.value != "") tasks[index].name = e.target.value;
 
-   showList();
+   showList(tasks);
 };
 
 // * clears all tasks on "clear completed" button click
