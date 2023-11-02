@@ -158,14 +158,14 @@ body {
    w-full;
 }
 
-.info-wrap button {
+.info-2 button {
    @apply border
    px-2 
    py-1
    border-white;
 }
 
-.info-wrap button:hover {
+.info-2 button:hover {
    @apply border
    px-2 
    py-1
@@ -176,6 +176,11 @@ body {
 .info-2 {
    @apply flex
    gap-2;
+}
+
+.info-3 button:hover {
+   @apply border-b
+   border-gray-400;
 }
 
 .test-wrap1,

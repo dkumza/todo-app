@@ -812,7 +812,7 @@ body {
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
-.info-wrap button{
+.info-2 button{
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
@@ -822,7 +822,7 @@ body {
   padding-bottom: 0.25rem;
 }
 
-.info-wrap button:hover{
+.info-2 button:hover{
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -836,6 +836,12 @@ body {
 .info-2{
   display: flex;
   gap: 0.5rem;
+}
+
+.info-3 button:hover{
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .test-wrap1,
