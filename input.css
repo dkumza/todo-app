@@ -39,14 +39,14 @@ body {
    items-center
    w-full
    max-w-lg
-   border-b-2
+   border
    border-gray-200
    shadow-xl;
 }
 
 .input-icon {
-   @apply text-gray-300
-   hover:text-green-400;
+   @apply text-gray-200
+   hover:text-green-200;
 }
 
 .input-group {
@@ -85,15 +85,14 @@ body {
 
 .new-li-wrap {
    @apply flex
-   w-full
-   
+   w-full   
    items-center;
 }
 
 .new-li {
    @apply bg-white
    border
-   border-gray-100
+   border-gray-200
    shadow-xl
    w-full   
    h-14
@@ -123,12 +122,12 @@ body {
 }
 .check-mark {
    margin-left: -40px;
-   @apply text-gray-300
-   hover:text-green-400;
+   @apply text-gray-100
+   hover:text-green-200;
 }
 
 .bi-check2-circle {
-   @apply text-green-400;
+   @apply text-green-200;
 }
 
 .about-wrap {
@@ -140,7 +139,43 @@ body {
 .stack-wrap {
    @apply flex
    flex-col
-   items-center;
+   items-center  
+   w-full
+   min-w-fit
+    max-w-lg;
+}
+
+.info-wrap {
+   @apply border
+   text-xs
+   flex
+   justify-between
+   align-middle
+   items-center
+   p-3
+   bg-white
+   text-gray-500
+   w-full;
+}
+
+.info-wrap button {
+   @apply border
+   px-2 
+   py-1
+   border-white;
+}
+
+.info-wrap button:hover {
+   @apply border
+   px-2 
+   py-1
+   rounded
+   border-rose-100;
+}
+
+.info-2 {
+   @apply flex
+   gap-2;
 }
 
 .test-wrap1,
@@ -158,7 +193,7 @@ body {
 }
 
 .toggle-icon {
-   @apply text-green-400;
+   @apply text-green-200;
 }
 
 .hide {

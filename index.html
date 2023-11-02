@@ -19,7 +19,7 @@
 
          <div class="form-wrapper">
             <button onclick="toggleAllTasks()" class="input-icon w-14">
-               <div class="">
+               <div class="s-all hide">
                   <i class="bi bi-check2-all"></i>
                </div>
             </button>
@@ -38,6 +38,23 @@
 
          <div class="tasks-wrap">
             <ul class="tasks"></ul>
+            <div class="stack-wrap hide">
+               <div class="info-wrap">
+                  <div class="info-1">
+                     <p><span class="counter"></span></p>
+                  </div>
+                  <div class="info-2">
+                     <button class="all-info">All</button>
+                     <button>Active</button>
+                     <button>Completed</button>
+                  </div>
+                  <div class="info-3">
+                     <button>Clear Completed</button>
+                  </div>
+               </div>
+               <div class="test-wrap1"></div>
+               <div class="test-wrap2"></div>
+            </div>
          </div>
          <footer class="foot-container">
             <div class="about-wrap"><p>Double click to edit todo</p></div>

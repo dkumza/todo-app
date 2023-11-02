@@ -1,7 +1,11 @@
 const contForStacked = document.querySelector(".tasks-wrap");
+const stackWrap = document.querySelector(".stack-wrap");
 const allToDo = document.querySelector(".tasks");
+const selAll = document.querySelector(".s-all");
 const inputIcon = document.querySelector(".input-icon");
-let stackDiv;
+// tasks counter
+const tasksCounter = document.querySelector(".counter");
+// let stackDiv;
 let tasks = [];
 
 const createNewItem = (task, index) => {
@@ -47,20 +51,11 @@ const createNewItem = (task, index) => {
    // allToDo.insertBefore(newLi, firstToDo);
 };
 
-// creates element with stacked effect
-const createStackEffect = () => {
-   // container for 2 divs
-   stackDiv = document.createElement("div");
-   stackDiv.classList.add("stack-wrap");
-   // 1st ele
-   const stack1 = document.createElement("div");
-   stack1.classList.add("test-wrap1");
-   // 2nd ele
-   const stack2 = document.createElement("div");
-   stack2.classList.add("test-wrap2");
-   // append to stack-wrap ele
-   stackDiv.appendChild(stack1);
-   stackDiv.appendChild(stack2);
+// count tasks / items
+const countTasks = () => {
+   tasks.length === 1
+      ? (tasksCounter.textContent = `${tasks.length} item left`)
+      : (tasksCounter.textContent = `${tasks.length} items left`);
 };
 
 const showList = () => {
@@ -85,22 +80,30 @@ const submitTask = (e) => {
 
    e.target[0].value = "";
    showList(tasks);
+
+   countTasks();
+
    console.log(tasks.length);
    if (tasks.length === 1) {
-      createStackEffect();
-      contForStacked.appendChild(stackDiv);
+      // hide "stack" and hide select all tasks icon
+      stackWrap.classList.remove("hide");
+      selAll.classList.remove("hide");
    }
 };
 
 const deleteTask = (index) => {
    tasks.splice(index, 1);
    showList();
+   countTasks();
    if (tasks.length === 0) {
-      contForStacked.removeChild(stackDiv);
+      // show "stack" and show select all tasks icon
+      stackWrap.classList.add("hide");
+      selAll.classList.add("hide");
    }
 };
 
 const toggleAllTasks = () => {
+   console.log("first");
    // toggle all tasks to finished
    const allTasksAreTrue = tasks.every((task) => task.status === true);
    // depending on value change DOM
@@ -109,7 +112,7 @@ const toggleAllTasks = () => {
          task.status = false;
          inputIcon.classList.remove("toggle-icon");
       }
-      if (!task.status) {
+      if (!allTasksAreTrue) {
          task.status = true;
          inputIcon.classList.add("toggle-icon");
       }
