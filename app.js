@@ -87,7 +87,6 @@ const showList = (array) => {
    tasks = array;
    // reset innerHTML of allToDO
    allToDo.innerHTML = "";
-   console.log(tasks);
 
    tasks.forEach((task, index) => {
       createNewItem(task, index);
@@ -146,13 +145,19 @@ const toggleAllTasks = () => {
 
 // * function to select 1 task item to finish or not
 const markDone = (index) => {
-   // ? select new created li item checkmark - circle
+   // ? select new created li item check mark - circle
    let trueOrFalse = !tasks[index].status;
    tasks[index].status = trueOrFalse;
 
    toggleClearBtn();
    // check done status for clear completed button
    showList(tasks);
+
+   //* count tasks length with marked done tasks, and if all tasks are marked done, change icon of inputIcon
+   const markedTasks = [...tasks].filter((task) => task.status === true);
+   tasks.length === markedTasks.length
+      ? inputIcon.classList.add("toggle-icon")
+      : inputIcon.classList.remove("toggle-icon");
 };
 
 // * on double click on tasks text toggles input field with tasks text to edit task
@@ -182,4 +187,5 @@ const clearAll = () => {
    countTasks();
    toggleClearBtn();
    stackWrapMenu();
+   inputIcon.classList.remove("toggle-icon");
 };

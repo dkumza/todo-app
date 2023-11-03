@@ -18,6 +18,7 @@ body {
 /* form container  */
 .main-container {
    @apply container
+   px-1
    mx-auto
    text-2xl
    flex
