@@ -58,6 +58,7 @@ const createNewItem = (task) => {
       : taskTxt.classList.add("focus-me");
    // delete button with icon
    const delBtn = document.createElement("button");
+   delBtn.classList.add("del-btn");
    const delBtnIcon = document.createElement("i");
    delBtnIcon.classList.add("bi", "bi-x");
 

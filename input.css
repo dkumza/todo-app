@@ -64,10 +64,16 @@ body {
 }
 
 .input-text-up {
-   @apply w-full
-    h-12
-    outline-gray-200;
+   @apply top-0
+   w-full
+   max-w-lg
+    h-11
+    outline-none;
 }
+
+/* .input-text-up:focus {
+   @apply text-zinc-400;
+} */
 
 .tasks-wrap {
    @apply flex
@@ -94,7 +100,7 @@ body {
    @apply bg-white
    border
    border-gray-200
-   shadow-xl
+   /* shadow-xl */
    w-full   
    h-14
    p-6
