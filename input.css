@@ -139,7 +139,7 @@ body {
 
 .about-wrap {
    @apply text-xs
-   text-gray-400
+   text-gray-300
    pt-12;
 }
 
