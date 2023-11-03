@@ -21,20 +21,21 @@ let tasks = [];
 let array = [];
 let complTasks = [];
 
-// show / hide bottom menu
+// * show / hide bottom menu
 const stackWrapMenu = () => {
    if (tasks.length === 0) {
-      // show "stack" and show select all tasks icon
+      // * show "stack" and show select all tasks icon
       stackWrap.classList.add("hide");
       selAll.classList.add("hide");
    }
-   if (tasks.length === 1) {
-      // hide "stack" and hide select all tasks icon
+   if (tasks.length > 0) {
+      // * hide "stack" and hide select all tasks icon
       stackWrap.classList.remove("hide");
       selAll.classList.remove("hide");
    }
 };
 
+// * create new task as DOM element
 const createNewItem = (task) => {
    // create li ele container
    const newLi = document.createElement("li");
@@ -60,6 +61,7 @@ const createNewItem = (task) => {
    const delBtnIcon = document.createElement("i");
    delBtnIcon.classList.add("bi", "bi-x");
 
+   // * append all to ul item
    taskTxt.textContent = `${task.name}`; //${task.name}
    checkStatusIcon.appendChild(iconBtn);
    liWrap.appendChild(checkStatusIcon);
@@ -77,24 +79,31 @@ const createNewItem = (task) => {
       // ? select new created li item check mark - circle
       let taskIndex = tasks.indexOf(task);
       tasks[taskIndex].status = !tasks[taskIndex].status;
-
+      // * update DOM
+      localStorage.setItem("data", JSON.stringify(tasks));
       showList(tasks);
-
+      countTasks();
+      // * checks clear all tasks button
       toggleClearBtn();
+
       // //* count tasks length with marked done tasks, and if all tasks are marked done, change icon of inputIcon
       const markedTasks = [...tasks].filter((task) => task.status === true);
       tasks.length === markedTasks.length
          ? inputIcon.classList.add("toggle-icon")
          : inputIcon.classList.remove("toggle-icon");
 
+      // * check for filters
       btnCompON ? completedAll() : null;
       btnActiveON ? activeAll() : null;
    });
 
    // * delete tasks by target
    delBtnIcon.addEventListener("click", () => {
+      // * deletes selected item from DOM
       allToDo.removeChild(newLi);
+      // * updates tasks array and localStorage by removing selected task
       tasks.splice(tasks.indexOf(task), 1);
+      localStorage.setItem("data", JSON.stringify(tasks));
       countTasks();
       stackWrapMenu();
       toggleClearBtn();
@@ -116,20 +125,21 @@ const createNewItem = (task) => {
                                  task
                               )})"
                            >`;
-      // const inputToEdit = document.querySelector("input-text-up");
-      // inputToEdit.addEventListener("keyup", (e) => {
-      //    if (e.keyCode === 13) {
-      //       console.log("pressed");
-      //    }
-      // });
    });
 };
 
-// count tasks / items
+// * counts tasks / items and updates how many items are in ul
 const countTasks = () => {
    tasks.length === 1
       ? (tasksCounter.textContent = `${tasks.length} item left`)
       : (tasksCounter.textContent = `${tasks.length} items left`);
+
+   // *checks how many items are done and shows on DOM
+   const markedTasks = [...tasks].filter((task) => task.status === true);
+   let leftUndoneTasks = tasks.length - markedTasks.length;
+   leftUndoneTasks === 1
+      ? (tasksCounter.textContent = `${leftUndoneTasks} item left`)
+      : (tasksCounter.textContent = `${leftUndoneTasks} items left`);
 };
 
 // * toggle clear complete button
@@ -158,17 +168,23 @@ const submitTask = (e) => {
       date: Date.now(),
    };
 
+   localStorage.setItem("data", JSON.stringify(tasks));
    e.target[0].value = "";
    showList(tasks);
    countTasks();
    stackWrapMenu();
+
+   const markedTasks = [...tasks].filter((task) => task.status === true);
+   tasks.length === markedTasks.length
+      ? inputIcon.classList.add("toggle-icon")
+      : inputIcon.classList.remove("toggle-icon");
+
    btnCompON ? completedAll() : null;
    btnActiveON ? activeAll() : null;
 };
 
 // * toggles all tasks done or not done
 const toggleAllTasks = () => {
-   console.log("first");
    // toggle all tasks to finished
    const allTasksAreTrue = [...tasks].every((task) => task.status === true);
    // depending on value change DOM
@@ -185,27 +201,8 @@ const toggleAllTasks = () => {
       }
       return task;
    });
+   localStorage.setItem("data", JSON.stringify(tasks));
    showList(changeStatus);
-   btnCompON ? completedAll() : null;
-   btnActiveON ? activeAll() : null;
-};
-
-// * function to select 1 task item to finish or not
-const markDone = (index) => {
-   // ? select new created li item check mark - circle
-   let trueOrFalse = !tasks[index].status;
-   tasks[index].status = trueOrFalse;
-
-   toggleClearBtn();
-   // check done status for clear completed button
-   showList(tasks);
-
-   //* count tasks length with marked done tasks, and if all tasks are marked done, change icon of inputIcon
-   const markedTasks = [...tasks].filter((task) => task.status === true);
-   tasks.length === markedTasks.length
-      ? inputIcon.classList.add("toggle-icon")
-      : inputIcon.classList.remove("toggle-icon");
-
    btnCompON ? completedAll() : null;
    btnActiveON ? activeAll() : null;
 };
@@ -215,6 +212,7 @@ const updateOnEnter = (e, index) => {
    if (e.keyCode === 13) {
       // * if on task edit input value is same or empty - keep last task value
       if (e.target.value != "") tasks[index].name = e.target.value;
+      localStorage.setItem("data", JSON.stringify(tasks));
       showList(tasks);
    }
 };
@@ -222,6 +220,7 @@ const updateTask = (e, index) => {
    e.preventDefault();
    // * if on task edit input value is same or empty - keep last task value
    if (e.target.value != "") tasks[index].name = e.target.value;
+   localStorage.setItem("data", JSON.stringify(tasks));
    showList(tasks);
 };
 
@@ -229,6 +228,7 @@ const updateTask = (e, index) => {
 const clearAll = () => {
    const clearedTasks = [...tasks].filter((task) => task.status === false);
    tasks = clearedTasks;
+   localStorage.setItem("data", JSON.stringify(tasks));
    showList(tasks);
    countTasks();
    toggleClearBtn();
@@ -246,7 +246,6 @@ const selectAll = () => {
    btnAll.classList.add("btn-all");
    btnActive.classList.remove("btn-all");
    complBtn.classList.remove("btn-all");
-   console.log(tasks);
    btnActiveON = false;
    btnCompON = false;
 };
@@ -272,3 +271,11 @@ const completedAll = () => {
    btnActiveON = false;
    showList(complTasks);
 };
+
+if (localStorage.getItem("data")) {
+   tasks = JSON.parse(localStorage.getItem("data"));
+   showList(tasks);
+   countTasks();
+   stackWrapMenu();
+   toggleClearBtn();
+}

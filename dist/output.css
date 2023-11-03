@@ -586,16 +586,8 @@ video {
   align-items: center;
 }
 
-.justify-center{
-  justify-content: center;
-}
-
 .text-right{
   text-align: right;
-}
-
-.align-middle{
-  vertical-align: middle;
 }
 
 .line-through{
@@ -728,8 +720,7 @@ body {
 .input-text-up{
   height: 3rem;
   width: 100%;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+  outline-color: #e5e7eb;
 }
 
 .tasks-wrap{
