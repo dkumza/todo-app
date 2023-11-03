@@ -14,7 +14,7 @@
    <body>
       <div class="main-container">
          <header class="head-container">
-            <h1 class="title">todos</h1>
+            <h1 class="title">..todo.</h1>
          </header>
 
          <div class="form-wrapper">
@@ -41,9 +41,15 @@
                      <p><span class="counter"></span></p>
                   </div>
                   <div class="info-2">
-                     <button class="btn-2 btn-all">All</button>
-                     <button class="btn-2 btn-act">Active</button>
-                     <button class="btn-2 bnt-com">Completed</button>
+                     <button onclick="selectAll()" class="btn-2 btn-all">
+                        All
+                     </button>
+                     <button onclick="activeAll()" class="btn-2 btn-act">
+                        Active
+                     </button>
+                     <button onclick="completedAll()" class="btn-2 btn-com">
+                        Completed
+                     </button>
                   </div>
                   <div class="info-3 text-right">
                      <button onclick="clearAll()" class="btn-clear hide">
@@ -56,7 +62,11 @@
             </div>
          </div>
          <footer class="foot-container">
-            <div class="about-wrap"><p>Double click to edit todo</p></div>
+            <div class="about-wrap flex flex-col items-center">
+               <p>Press Enter to add task</p>
+               <p>Double click to edit task</p>
+               <p>Press Enter to finish edit task</p>
+            </div>
          </footer>
       </div>
    </body>

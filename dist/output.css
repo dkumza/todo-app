@@ -570,12 +570,32 @@ video {
   }
 }
 
+.flex{
+  display: flex;
+}
+
 .w-14{
   width: 3.5rem;
 }
 
+.flex-col{
+  flex-direction: column;
+}
+
+.items-center{
+  align-items: center;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
 .text-right{
   text-align: right;
+}
+
+.align-middle{
+  vertical-align: middle;
 }
 
 .line-through{

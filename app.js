@@ -5,11 +5,21 @@ const selAll = document.querySelector(".s-all");
 const inputIcon = document.querySelector(".input-icon");
 // tasks counter
 const tasksCounter = document.querySelector(".counter");
+// all tasks button
+const btnAll = document.querySelector(".btn-all");
+// all active tasks button
+const btnActive = document.querySelector(".btn-act");
+let btnActiveON = false;
+// toggle completed tasks button
+const complBtn = document.querySelector(".btn-com");
+let btnCompON = false;
 // clear button
 const clearBtn = document.querySelector(".btn-clear");
+
 // let stackDiv;
 let tasks = [];
 let array = [];
+let complTasks = [];
 
 // show / hide bottom menu
 const stackWrapMenu = () => {
@@ -25,7 +35,7 @@ const stackWrapMenu = () => {
    }
 };
 
-const createNewItem = (task, index) => {
+const createNewItem = (task) => {
    // create li ele container
    const newLi = document.createElement("li");
    newLi.classList.add("new-li");
@@ -36,22 +46,17 @@ const createNewItem = (task, index) => {
    const checkStatusIcon = document.createElement("button");
    // create icon inside button ele
    const iconBtn = document.createElement("i");
-   iconBtn.setAttribute("onclick", `markDone(${index})`);
    task.status
       ? (task.status,
         iconBtn.classList.add("check-mark", "bi", "bi-check2-circle"))
       : iconBtn.classList.add("check-mark", "bi", "bi-circle");
-
    // create div with input of task
    const taskTxt = document.createElement("div");
-   taskTxt.setAttribute("onclick", `editTask(event, ${index})`);
    task.status
       ? taskTxt.classList.add("line-through", "focus-me")
       : taskTxt.classList.add("focus-me");
-
    // delete button with icon
    const delBtn = document.createElement("button");
-   delBtn.setAttribute("onclick", `deleteTask(${index})`);
    const delBtnIcon = document.createElement("i");
    delBtnIcon.classList.add("bi", "bi-x");
 
@@ -66,6 +71,58 @@ const createNewItem = (task, index) => {
    // make last input first at top
    // const firstToDo = allToDo.firstChild;
    // allToDo.insertBefore(newLi, firstToDo);
+
+   // * change tasks status by target
+   iconBtn.addEventListener("click", () => {
+      // ? select new created li item check mark - circle
+      let taskIndex = tasks.indexOf(task);
+      tasks[taskIndex].status = !tasks[taskIndex].status;
+
+      showList(tasks);
+
+      toggleClearBtn();
+      // //* count tasks length with marked done tasks, and if all tasks are marked done, change icon of inputIcon
+      const markedTasks = [...tasks].filter((task) => task.status === true);
+      tasks.length === markedTasks.length
+         ? inputIcon.classList.add("toggle-icon")
+         : inputIcon.classList.remove("toggle-icon");
+
+      btnCompON ? completedAll() : null;
+      btnActiveON ? activeAll() : null;
+   });
+
+   // * delete tasks by target
+   delBtnIcon.addEventListener("click", () => {
+      allToDo.removeChild(newLi);
+      tasks.splice(tasks.indexOf(task), 1);
+      countTasks();
+      stackWrapMenu();
+      toggleClearBtn();
+      btnCompON ? completedAll() : null;
+      btnActiveON ? activeAll() : null;
+   });
+
+   // * on double click on tasks text toggles input field with tasks text to edit task
+   taskTxt.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.target.innerHTML = `<input
+                              type="text"
+                              class="input-text-up"      
+                              value="${e.target.textContent}"
+                              onkeyup="updateOnEnter(event, ${tasks.indexOf(
+                                 task
+                              )})"
+                              onfocusout="updateTask(event, ${tasks.indexOf(
+                                 task
+                              )})"
+                           >`;
+      // const inputToEdit = document.querySelector("input-text-up");
+      // inputToEdit.addEventListener("keyup", (e) => {
+      //    if (e.keyCode === 13) {
+      //       console.log("pressed");
+      //    }
+      // });
+   });
 };
 
 // count tasks / items
@@ -83,22 +140,18 @@ const toggleClearBtn = () => {
 
 // * creates li items
 const showList = (array) => {
-   // * passed array to function declared to tasks variable - array > tasks. To work with any passed array
-   tasks = array;
    // reset innerHTML of allToDO
    allToDo.innerHTML = "";
 
-   tasks.forEach((task, index) => {
-      createNewItem(task, index);
+   array.forEach((task) => {
+      createNewItem(task);
    });
 };
 
 // * on submit new task creates fills up tasks array
 const submitTask = (e) => {
    e.preventDefault();
-
    if (e.target[0].value === "") return;
-
    tasks[tasks.length] = {
       name: e.target[0].value,
       status: false,
@@ -107,18 +160,10 @@ const submitTask = (e) => {
 
    e.target[0].value = "";
    showList(tasks);
-
-   countTasks();
-
-   stackWrapMenu();
-};
-
-// * on task delete action deletes clicked li item from tasks array and DOM
-const deleteTask = (index) => {
-   tasks.splice(index, 1);
-   showList(tasks);
    countTasks();
    stackWrapMenu();
+   btnCompON ? completedAll() : null;
+   btnActiveON ? activeAll() : null;
 };
 
 // * toggles all tasks done or not done
@@ -141,6 +186,8 @@ const toggleAllTasks = () => {
       return task;
    });
    showList(changeStatus);
+   btnCompON ? completedAll() : null;
+   btnActiveON ? activeAll() : null;
 };
 
 // * function to select 1 task item to finish or not
@@ -158,34 +205,70 @@ const markDone = (index) => {
    tasks.length === markedTasks.length
       ? inputIcon.classList.add("toggle-icon")
       : inputIcon.classList.remove("toggle-icon");
+
+   btnCompON ? completedAll() : null;
+   btnActiveON ? activeAll() : null;
 };
 
-// * on double click on tasks text toggles input field with tasks text to edit task
-const editTask = (e, index) => {
+const updateOnEnter = (e, index) => {
    e.preventDefault();
-   // create input on click of todo text
-   e.target.innerHTML = `<input
-                               type="text"
-                               class="input-text-up"
-
-                               value="${tasks[index].name}"
-                               onfocusout="updateTask(event, ${index})"
-                           >`;
+   if (e.keyCode === 13) {
+      // * if on task edit input value is same or empty - keep last task value
+      if (e.target.value != "") tasks[index].name = e.target.value;
+      showList(tasks);
+   }
 };
-
-// * if on task edit input value is same or empty - keep last task value
 const updateTask = (e, index) => {
+   e.preventDefault();
+   // * if on task edit input value is same or empty - keep last task value
    if (e.target.value != "") tasks[index].name = e.target.value;
-
    showList(tasks);
 };
 
 // * clears all tasks on "clear completed" button click
 const clearAll = () => {
    const clearedTasks = [...tasks].filter((task) => task.status === false);
-   showList(clearedTasks);
+   tasks = clearedTasks;
+   showList(tasks);
    countTasks();
    toggleClearBtn();
    stackWrapMenu();
    inputIcon.classList.remove("toggle-icon");
+   btnCompON ? completedAll() : null;
+   btnActiveON ? activeAll() : null;
+   // * if tasks length === 0, show all tasks
+   tasks.length === 0 ? selectAll() : null;
+};
+
+// * select all tasks in menu
+const selectAll = () => {
+   showList(tasks);
+   btnAll.classList.add("btn-all");
+   btnActive.classList.remove("btn-all");
+   complBtn.classList.remove("btn-all");
+   console.log(tasks);
+   btnActiveON = false;
+   btnCompON = false;
+};
+
+// * toggle active tasks
+const activeAll = () => {
+   const activeTasks = [...tasks].filter((task) => task.status === false);
+   btnAll.classList.remove("btn-all");
+   btnActive.classList.add("btn-all");
+   complBtn.classList.remove("btn-all");
+   showList(activeTasks);
+   btnActiveON = true;
+   btnCompON = false;
+};
+
+// * toggle completed tasks
+const completedAll = () => {
+   complTasks = [...tasks].filter((task) => task.status === true);
+   btnAll.classList.remove("btn-all");
+   btnActive.classList.remove("btn-all");
+   complBtn.classList.add("btn-all");
+   btnCompON = true;
+   btnActiveON = false;
+   showList(complTasks);
 };
