@@ -204,6 +204,7 @@ const toggleAllTasks = () => {
    });
    localStorage.setItem("data", JSON.stringify(tasks));
    showList(changeStatus);
+   countTasks();
    btnCompON ? completedAll() : null;
    btnActiveON ? activeAll() : null;
 };
