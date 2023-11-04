@@ -5,7 +5,8 @@ Mostly why I created this app is that I liked style of todo.mvc and i wanted to 
 
 ## Installation
 
-To install the application, clone the repository and run the following command:
+
+Everything should work out of the box. But if you wanna play around with HTML and CSS you need to install the application: clone the repository and run the following command:
 
     npm install
     
