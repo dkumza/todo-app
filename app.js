@@ -81,7 +81,7 @@ const createNewItem = (task) => {
       let taskIndex = tasks.indexOf(task);
       tasks[taskIndex].status = !tasks[taskIndex].status;
       // * update DOM
-      localStorage.setItem("data", JSON.stringify(tasks));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
       showList(tasks);
       countTasks();
       // * checks clear all tasks button
@@ -104,7 +104,7 @@ const createNewItem = (task) => {
       allToDo.removeChild(newLi);
       // * updates tasks array and localStorage by removing selected task
       tasks.splice(tasks.indexOf(task), 1);
-      localStorage.setItem("data", JSON.stringify(tasks));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
       countTasks();
       stackWrapMenu();
       toggleClearBtn();
@@ -169,7 +169,7 @@ const submitTask = (e) => {
       date: Date.now(),
    };
 
-   localStorage.setItem("data", JSON.stringify(tasks));
+   localStorage.setItem("tasks", JSON.stringify(tasks));
    e.target[0].value = "";
    showList(tasks);
    countTasks();
@@ -202,7 +202,7 @@ const toggleAllTasks = () => {
       }
       return task;
    });
-   localStorage.setItem("data", JSON.stringify(tasks));
+   localStorage.setItem("tasks", JSON.stringify(tasks));
    showList(changeStatus);
    countTasks();
    btnCompON ? completedAll() : null;
@@ -214,7 +214,7 @@ const updateOnEnter = (e, index) => {
    if (e.keyCode === 13) {
       // * if on task edit input value is same or empty - keep last task value
       if (e.target.value != "") tasks[index].name = e.target.value;
-      localStorage.setItem("data", JSON.stringify(tasks));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
       showList(tasks);
    }
 };
@@ -222,7 +222,7 @@ const updateTask = (e, index) => {
    e.preventDefault();
    // * if on task edit input value is same or empty - keep last task value
    if (e.target.value != "") tasks[index].name = e.target.value;
-   localStorage.setItem("data", JSON.stringify(tasks));
+   localStorage.setItem("tasks", JSON.stringify(tasks));
    showList(tasks);
 };
 
@@ -230,7 +230,7 @@ const updateTask = (e, index) => {
 const clearAll = () => {
    const clearedTasks = [...tasks].filter((task) => task.status === false);
    tasks = clearedTasks;
-   localStorage.setItem("data", JSON.stringify(tasks));
+   localStorage.setItem("tasks", JSON.stringify(tasks));
    showList(tasks);
    countTasks();
    toggleClearBtn();
@@ -274,8 +274,8 @@ const completedAll = () => {
    showList(complTasks);
 };
 
-if (localStorage.getItem("data")) {
-   tasks = JSON.parse(localStorage.getItem("data"));
+if (localStorage.getItem("tasks")) {
+   tasks = JSON.parse(localStorage.getItem("tasks"));
    showList(tasks);
    countTasks();
    stackWrapMenu();
